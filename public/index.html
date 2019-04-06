@@ -106,7 +106,7 @@
     var profile;
     var requestObj = {
         breakOptions: {
-            
+
         }
     };
 
@@ -136,7 +136,8 @@
             });
             requestObj.availiability = availiability;
             requestObj.budget = $("#budget").val();
-            requestObj.profileUrl = "https://plus.google.com/s2/photos/profile/"+profile.getId()+"?sz=150";
+            requestObj.profileUrl = "";
+            requestObj.profileUrl = profile.getImageUrl();
             console.log(requestObj);
             socket.emit('new request', requestObj);
             $('#m').val('');
