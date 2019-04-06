@@ -143,7 +143,9 @@
             socket.emit('new request', requestObj);
             alert("Request submitted check your inbox!")
             $('#travelPoint').val('');
-            $('.form-check-label').prop('checked', false);
+            $('.form-check-label').each(function(){
+                this.prop('checked', false)
+            });
             $("#budget").val('');
 
             return false;
