@@ -75,11 +75,11 @@
             <input type="submit" class="form-control submit-btn" id="submit">
         </div>
     </form>
-    <form style="padding: 5%" id="sign-in-form" class="border" aria-hidden="false">
+    <form style="padding: 5%" id="sign-in-form" class="border">
         <div class="modal-dialog" role="document">
             <h5 class="modal-title">Sign into Microgap</h5>
             <div class="container">
-                <div class="g-signin1" data-onsuccess="onSignIn"></div>
+                <div class="g-signin2" data-onsuccess="onSignIn"></div>
             </div>
         </div>
     </form>
@@ -123,7 +123,6 @@
         profile = googleUser.getBasicProfile();
         console.log('Email: ' + profile.getEmail());
         $('#main-form').show();
-        $('#sign-in-form').hide();
     }
 
     $(function () {
