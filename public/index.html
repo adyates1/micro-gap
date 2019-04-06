@@ -143,12 +143,9 @@
             socket.emit('new request', requestObj);
             alert("Request submitted check your inbox!")
             $('#travelPoint').val('');
-            $('#cityBreakCheck').prop('checked', false);
-            $('#beachBreakCheck').prop('checked', false);
-            $('#adventureBreakCheck').prop('checked', false);
             $("#budget").val('');
-            $('.myCheckbox').prop('checked', false);
-
+            $('.form-check-input').prop('checked', false);
+            $('.form-check').prop('checked', false);
             return false;
         });
     });
