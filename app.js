@@ -34,7 +34,7 @@ io.on('connection', function (socket) {
             to: 'Microgaptravel@gmail.com',
             subject: 'New Request From ' + request.userName,
             html: ('<h1>New Request From ' + request.userName + '</h1>' +
-                '<p>Travel point:' + request.travelPoint +
+                '<p>Travel point: ' + request.travelPoint +
                 '<br>Break options:<ul>' +
                 '<li>City Break: '+request.breakOptions.cityBreak+'</li>' +
                 '<li>Beach Break: '+request.breakOptions.beachBreak+'</li>' +
