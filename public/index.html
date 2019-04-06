@@ -9,7 +9,7 @@
     <div id="fb-root"></div>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <meta name="google-signin-client_id"
-          content="768963666732-ok9ie6kple4r4o7catc16hps7rjgurlm.apps.googleusercontent.com">
+          content="768963666732-b9on65ctbheht8uf89m7c0b8j7pkkr76.apps.googleusercontent.com">
 <body>
 
 <h1 class="text-center">MicroGap</h1>
@@ -86,8 +86,10 @@
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 
 <script>
-
+    var profile;
     var requestObj = {
+        'userEmail': "null",
+        'userName': "null",
         'travelPoint': "null",
         'breakOptions': {
             'cityBreak': false,
@@ -103,7 +105,7 @@
     });
 
     function onSignIn(googleUser) {
-        var profile = googleUser.getBasicProfile();
+        profile = googleUser.getBasicProfile();
         console.log('Email: ' + profile.getEmail());
         $('#modal').hide();
     }
@@ -112,6 +114,8 @@
         var socket = io();
         $('form').submit(function (e) {
             e.preventDefault(); // prevents page reloading
+            requestObj.userEmail = profile.getEmail();
+            requestObj.userName = profile.getName();
             requestObj.travelPoint = $('#travelPoint').val();
             requestObj.breakOptions.cityBreak = $('#cityBreakCheck').is(":checked");
             requestObj.breakOptions.beachBreak = $('#beachBreakCheck').is(":checked");

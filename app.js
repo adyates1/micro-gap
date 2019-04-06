@@ -1,25 +1,58 @@
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var nodemailer = require('nodemailer');
 
-app.get('/', function(req, res){
-  res.sendFile(__dirname + '/public/index.html');
-});
-app.get('/style.css', function(req, res) {
-  res.sendFile(__dirname + "/public/stylesheets/style.css");
-});
-app.get('/public/images/banner.jpg', function(req, res) {
-  res.sendFile(__dirname + "/public/images/banner.jpg");
-});
-
-io.on('connection', function(socket){
-  console.log('A user connected');
-
-  socket.on('new request', function(request){
-    console.log('Client Input: ' + msg);
-  });
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'Microgaptravel@gmail.com',
+        pass: 'Startupweekend06!'
+    }
 });
 
-http.listen(80, function(){
-  console.log('listening on *:80');
+
+app.get('/', function (req, res) {
+    res.sendFile(__dirname + '/public/index.html');
+});
+app.get('/style.css', function (req, res) {
+    res.sendFile(__dirname + "/public/stylesheets/style.css");
+});
+app.get('/public/images/banner.jpg', function (req, res) {
+    res.sendFile(__dirname + "/public/images/banner.jpg");
+});
+
+io.on('connection', function (socket) {
+    console.log('A user connected');
+
+    socket.on('new request', function (request) {
+
+        var mailOptions = {
+            from: 'Microgaptravel@gmail.com',
+            to: 'adyates1@sheffield.ac.uk',
+            subject: 'New Request From ' + request.userName,
+            html: ('<h1>New Request From ' + request.userName + '</h1>' +
+                '<p>Travel point:' + request.travelPoint +
+                '<br>Break options:<ul>' +
+                '<li>City Break: '+request.breakOptions.cityBreak+'</li>' +
+                '<li>Beach Break: '+request.breakOptions.beachBreak+'</li>' +
+                '<li>Adventure Break: '+request.breakOptions.adventureBreak+'</li>' +
+                '</ul>'+
+                'Weekend date: ' + request.weekendDate +'<br>'+
+                'Budget: ' + request.budget +
+            '</p>')}
+        ;
+
+        transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+                console.log(error);
+            } else {
+                console.log('Email sent: ' + info.response);
+            }
+        });
+    });
+});
+
+http.listen(80, function () {
+    console.log('listening on *:80');
 });
