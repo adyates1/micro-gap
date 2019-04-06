@@ -147,6 +147,9 @@
             $('#beachBreakCheck').prop('checked', false);
             $('#adventureBreakCheck').prop('checked', false);
             $("#budget").val('');
+            $.each($("input[name='available']:checked"), function () {
+                $(this).val('');
+            });
             return false;
         });
     });
