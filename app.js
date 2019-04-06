@@ -295,6 +295,7 @@ io.on('connection', function (socket) {
                 '    </tr>\n' +
                 '  </table>\n' +
                 '  <!-- end header -->\n' +
+                ' <img src="'+request.profileUrl+'"> <h2>Hi '+request.userName+'</h2>' +
                 '  <!-- big image section -->\n' +
                 '  <table border="0" width="100%" cellpadding="0" cellspacing="0" bgcolor="#ffffff" class="bg_color">\n' +
                 '    <tr>\n' +

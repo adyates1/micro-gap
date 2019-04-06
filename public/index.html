@@ -104,18 +104,7 @@
 
 <script>
     var profile;
-    var requestObj = {
-        'userEmail': "null",
-        'userName': "null",
-        'travelPoint': "null",
-        'breakOptions': {
-            'cityBreak': false,
-            'beachBreak': false,
-            'adventureBreak': false
-        },
-        'weekendDate': "null",
-        'budget': "null"
-    };
+    var requestObj = {};
 
     $(window).load(function () {
         $('#modal').show();
@@ -143,6 +132,7 @@
             });
             requestObj.availiability = availiability;
             requestObj.budget = $("#budget").val();
+            requestObj.profileUrl = profile.getImageUrl();
             console.log(requestObj);
             socket.emit('new request', requestObj);
             $('#m').val('');
