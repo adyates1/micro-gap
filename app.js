@@ -42,8 +42,10 @@ io.on('connection', function (socket) {
                 '</ul>'+
                 'Weekend date: ' + request.weekendDate +'<br>'+
                 'Budget: ' + request.budget +
-            '</p>')}
-        ;
+                '</p><br><p>' +
+                'Contact them: <a href="mailto:'+request.userEmail+'>'+request.userEmail+'</a>' +
+                '</p>')
+        };
 
         transporter.sendMail(mailOptions, function (error, info) {
             if (error) {
