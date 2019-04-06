@@ -31,7 +31,7 @@ io.on('connection', function (socket) {
 
         var mailOptions = {
             from: 'Microgaptravel@gmail.com',
-            to: 'adyates1@sheffield.ac.uk',
+            to: 'Microgaptravel@gmail.com',
             subject: 'New Request From ' + request.userName,
             html: ('<h1>New Request From ' + request.userName + '</h1>' +
                 '<p>Travel point:' + request.travelPoint +
