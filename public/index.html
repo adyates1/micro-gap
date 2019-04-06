@@ -141,7 +141,7 @@
             console.log(requestObj.profileUrl);
             console.log(requestObj);
             socket.emit('new request', requestObj);
-            $('#m').val('');
+            alert("Request submitted check your inbox!")
             return false;
         });
     });
