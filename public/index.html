@@ -14,8 +14,8 @@
 
 <body>
 
-<div class="container bg-">
-    <form style="padding: 5%" class="border">
+<div class="container">
+    <form id="main-form" style="padding: 5%" class="border" aria-hidden="true">
         <div class="row">
             <div class="col">
                 <div class="form-group">
@@ -45,19 +45,22 @@
             <div class="col">
                 <div class="form-group">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Friday - Sunday" id="fsun" name="available">
+                        <input class="form-check-input" type="checkbox" value="Friday - Sunday" id="fsun"
+                               name="available">
                         <label class="form-check-label" for="fsun">
                             Friday - Sunday
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Friday - Saturday" id="fsa" name="available">
+                        <input class="form-check-input" type="checkbox" value="Friday - Saturday" id="fsa"
+                               name="available">
                         <label class="form-check-label" for="fsa">
                             Friday - Saturday
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Saturday - Sunday" id="sasu" name="available">
+                        <input class="form-check-input" type="checkbox" value="Saturday - Sunday" id="sasu"
+                               name="available">
                         <label class="form-check-label" for="sasu">
                             Saturday - Sunday
                         </label>
@@ -69,22 +72,15 @@
             <input type="text" class="form-control" id="budget" placeholder="What's your budget looking like?">
         </div>
         <div class="form-group">
-            <input type="submit" class="form-control" id="submit">
+            <input type="submit" class="form-control submit-btn" id="submit">
         </div>
     </form>
-</div>
+    <form style="padding: 5%" id="sign-in-form" class="border" aria-hidden="false">
+        <div class="modal-dialog" role="document">
+            <h5 class="modal-title">Sign into Microgap</h5>
 
-<div class="modal" id="modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Sign into Microgap</h5>
-            </div>
-            <div class="modal-body">
-                <div class=" g-signin2" data-onsuccess="onSignIn"></div>
-            </div>
-        </div>
-    </div>
+            <div class=" g-signin2" data-onsuccess="onSignIn"></div>
+    </form>
 </div>
 
 
@@ -118,13 +114,14 @@
     };
 
     $(window).load(function () {
-        $('#modal').show();
+        $('#main-form').hide();
     });
 
     function onSignIn(googleUser) {
         profile = googleUser.getBasicProfile();
         console.log('Email: ' + profile.getEmail());
-        $('#modal').hide();
+        $('#main-form').show();
+        $('#sign-in-form').hide();
     }
 
     $(function () {
