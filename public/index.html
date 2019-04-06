@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -15,7 +14,6 @@
 
 <body>
 
-<h1 class="text-center">MicroGap</h1>
 <div class="container bg-">
     <form style="padding: 5%" class="border">
         <div class="row">
@@ -46,8 +44,24 @@
             </div>
             <div class="col">
                 <div class="form-group">
-                    <input type="text" class="form-control" id="dateAvailable"
-                           placeholder="When's you're weekend away? DD/MM/YYYY">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="Friday - Sunday" name="available">
+                        <label class="form-check-label" for="cityBreakCheck">
+                            Friday - Sunday
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="Friday - Saturday" name="available">
+                        <label class="form-check-label" for="beachBreakCheck">
+                            Friday - Saturday
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="Saturday - Sunday" name="available">
+                        <label class="form-check-label" for="adventureBreakCheck">
+                            Saturday - Sunday
+                        </label>
+                    </div>
                 </div>
             </div>
         </div>
@@ -123,8 +137,12 @@
             requestObj.breakOptions.cityBreak = $('#cityBreakCheck').is(":checked");
             requestObj.breakOptions.beachBreak = $('#beachBreakCheck').is(":checked");
             requestObj.breakOptions.adventureBreak = $('#adventureBreakCheck').is(":checked");
-            requestObj.weekendDate = $("#dateAvailable").val();
-            requestObj.budget  = $("#budget").val();
+            var availiability = [];
+            $.each($("input[name='available']:checked"), function () {
+                availiability.push($(this).val());
+            });
+            requestObj.availiability = availiability;
+            requestObj.budget = $("#budget").val();
             console.log(requestObj);
             socket.emit('new request', requestObj);
             $('#m').val('');

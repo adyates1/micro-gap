@@ -40,7 +40,7 @@ io.on('connection', function (socket) {
                 '<li>Beach Break: '+request.breakOptions.beachBreak+'</li>' +
                 '<li>Adventure Break: '+request.breakOptions.adventureBreak+'</li>' +
                 '</ul>'+
-                'Weekend date: ' + request.weekendDate +'<br>'+
+                'Availability: ' + request.availiability +'<br>'+
                 'Budget: ' + request.budget +
                 '</p><br><p>Contact them: '+request.userEmail+ '</p>')
         };
