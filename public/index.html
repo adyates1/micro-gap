@@ -138,6 +138,7 @@
             requestObj.budget = $("#budget").val();
             requestObj.profileUrl = "";
             requestObj.profileUrl = profile.getImageUrl();
+            console.log(requestObj.profileUrl);
             console.log(requestObj);
             socket.emit('new request', requestObj);
             $('#m').val('');
