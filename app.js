@@ -8,11 +8,14 @@ app.get('/', function(req, res){
 app.get('/style.css', function(req, res) {
   res.sendFile(__dirname + "/public/stylesheets/style.css");
 });
+app.get('/public/images/banner.jpg', function(req, res) {
+  res.sendFile(__dirname + "/public/images/banner.jpg");
+});
 
 io.on('connection', function(socket){
   console.log('A user connected');
 
-  socket.on('client-input', function(msg){
+  socket.on('new request', function(request){
     console.log('Client Input: ' + msg);
   });
 });

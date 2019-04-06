@@ -1,7 +1,8 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background: aliceblue !important;
+  background: #f6f7f8 !important;
+  background-image: url("/public/images/banner.jpg");
 }
 
 a {

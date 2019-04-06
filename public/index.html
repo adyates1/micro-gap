@@ -6,14 +6,73 @@
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-</head>
+    <div id="fb-root"></div>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id"
+          content="768963666732-ok9ie6kple4r4o7catc16hps7rjgurlm.apps.googleusercontent.com">
 <body>
-<h1>MicroGap</h1>
-<form action="">
-    <input id="m" autocomplete="off" /><button>Send</button>
-</form>
+
+<h1 class="text-center">MicroGap</h1>
+<div class="container bg-">
+    <form style="padding: 5%" class="border">
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="travelPoint" placeholder="Enter your travel point">
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="cityBreakCheck">
+                    <label class="form-check-label" for="cityBreakCheck">
+                        City Break
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="beachBreakCheck">
+                    <label class="form-check-label" for="beachBreakCheck">
+                        Beach Break
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="adventureBreakCheck">
+                    <label class="form-check-label" for="adventureBreakCheck">
+                        Adventure Break
+                    </label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="dateAvailable"
+                           placeholder="When's you're weekend away? DD/MM/YYYY">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" id="budget" placeholder="What's your budget looking like?">
+        </div>
+        <div class="form-group">
+            <input type="submit" class="form-control" id="submit">
+        </div>
+    </form>
+</div>
+
+<div class="modal" id="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Sign into Microgap</h5>
+            </div>
+            <div class="modal-body">
+                <div class=" g-signin2" data-onsuccess="onSignIn"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 </body>
+
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
@@ -25,15 +84,46 @@
         crossorigin="anonymous"></script>
 <script src="/socket.io/socket.io.js"></script>
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+
 <script>
+
+    var requestObj = {
+        'travelPoint': "null",
+        'breakOptions': {
+            'cityBreak': false,
+            'beachBreak': false,
+            'adventureBreak': false
+        },
+        'weekendDate': "null",
+        'budget': "null"
+    };
+
+    $(window).load(function () {
+        $('#modal').show();
+    });
+
+    function onSignIn(googleUser) {
+        var profile = googleUser.getBasicProfile();
+        console.log('Email: ' + profile.getEmail());
+        $('#modal').hide();
+    }
+
     $(function () {
         var socket = io();
         $('form').submit(function (e) {
             e.preventDefault(); // prevents page reloading
-            socket.emit('client-input', $('#m').val());
+            requestObj.travelPoint = $('#travelPoint').val();
+            requestObj.breakOptions.cityBreak = $('#cityBreakCheck').is(":checked");
+            requestObj.breakOptions.beachBreak = $('#beachBreakCheck').is(":checked");
+            requestObj.breakOptions.adventureBreak = $('#adventureBreakCheck').is(":checked");
+            requestObj.weekendDate = $("#dateAvailable").val();
+            requestObj.budget  = $("#budget").val();
+            console.log(requestObj);
+            socket.emit('new request', requestObj);
             $('#m').val('');
             return false;
         });
     });
+
 </script>
 </html>
