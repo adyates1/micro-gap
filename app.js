@@ -3,7 +3,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var nodemailer = require('nodemailer');
 
-const port = '80' || process.env.PORT;
+const port = process.env.PORT || '80';
 
 var transporter = nodemailer.createTransport({
     service: 'gmail',
