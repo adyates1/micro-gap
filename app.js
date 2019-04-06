@@ -3,6 +3,8 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var nodemailer = require('nodemailer');
 
+const port = '80' || process.env.PORT;
+
 var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -53,6 +55,6 @@ io.on('connection', function (socket) {
     });
 });
 
-http.listen(80, function () {
-    console.log('listening on *:80');
+http.listen(port, function () {
+    console.log('listening on *:' + port);
 });
