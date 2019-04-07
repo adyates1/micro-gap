@@ -121,26 +121,34 @@
   }
 
   $(function() {
-    var socket = io();
-    $('form').submit(function(e) {
-      e.preventDefault(); // prevents page reloading
-      requestObj.userEmail = profile.getEmail();
-      requestObj.userName = profile.getName();
-      requestObj.travelPoint = $('#travelPoint').val();
-      requestObj.breakOptions.cityBreak = $('#cityBreakCheck').is(":checked");
-      requestObj.breakOptions.beachBreak = $('#beachBreakCheck').is(":checked");
-      requestObj.breakOptions.adventureBreak = $('#adventureBreakCheck').is(":checked");
-      var availiability = [];
-      $.each($("input[name='available']:checked"), function() {
-        availiability.push($(this).val());
-      });
-      requestObj.availiability = availiability;
-      requestObj.budget = $("#budget").val();
-      console.log(requestObj);
-      socket.emit('new request', requestObj);
-      $('#m').val('');
-      return false;
+  var socket = io();
+  $('form').submit(function(e) {
+    e.preventDefault(); // prevents page reloading
+    requestObj.userEmail = profile.getEmail();
+    requestObj.userName = profile.getName();
+    requestObj.travelPoint = $('#travelPoint').val();
+    requestObj.breakOptions.cityBreak = $('#cityBreakCheck').is(":checked");
+    requestObj.breakOptions.beachBreak = $('#beachBreakCheck').is(":checked");
+    requestObj.breakOptions.adventureBreak = $('#adventureBreakCheck').is(":checked");
+    var availiability = [];
+    $.each($("input[name='available']:checked"), function() {
+      availiability.push($(this).val());
     });
+    requestObj.availiability = availiability;
+    requestObj.budget = $("#budget").val();
+    requestObj.profileUrl = "";
+    requestObj.profileUrl = profile.getImageUrl();
+    console.log(requestObj.profileUrl);
+    console.log(requestObj);
+    socket.emit('new request', requestObj);
+    alert("Request submitted check your inbox!")
+    $('#travelPoint').val('');
+    $("#budget").val('');
+    $('.form-check-input').prop('checked', false);
+    $('.form-check').prop('checked', false);
+    return false;
+  });
+  });
   });
 
 </script>
